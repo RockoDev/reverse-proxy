@@ -53,7 +53,7 @@ server {
     listen [::]:443 ssl http2;
     server_name local.example.com;
     location / {
-        set $container   newsletter_php_1;
+        set $container   example_container_name;
         resolver         127.0.0.11;
         proxy_pass       http://$container;
         proxy_set_header Host $host;
