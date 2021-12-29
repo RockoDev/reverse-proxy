@@ -1,6 +1,11 @@
 # Configuración
 
-Agregar la variable **APP_NETWORK** al archivo **.env**.
+1. Crear copia del archivo .env.example con el nombre .env
+```sh
+$ cp .env.example .env
+```
+
+2. Especificar el valor de la variable **APP_NETWORK** en el archivo **.env**.
 
 Esto define el nombre de la red que se usará en docker. En otros proyectos se deberá usar el mismo valor para que se conecten a la misma red y se puedan comunicar.
 ```
@@ -30,7 +35,11 @@ server {
 ```
 2. Reemplazar **local.example.com** por el dominio (local) que se usará.
 3. Reemplazar **example_container_name** por el nombre del contenedor que responderá las solicitudes.
-4. Agregar al archivo /private/etc/hosts (en la máquina local) el dominio que se usará:
+4. Reiniciar este contenedor:
+```sh
+$ docker-compose restart
+```
+5. Agregar al archivo /private/etc/hosts (en la máquina local) el dominio que se usará:
 ```
 127.0.0.1 local.example.com
 ```
