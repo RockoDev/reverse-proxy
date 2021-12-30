@@ -2,7 +2,6 @@ version: '3.9'
 
 services:
   nginx:
-    #container_name: nginx-proxy
     image: nginx:alpine
     volumes:
     - ./etc/nginx/conf.d:/etc/nginx/conf.d
@@ -14,10 +13,9 @@ services:
     environment:
     - NGINX_HOST=localhost
     - NGINX_PORT=80
-    #network_mode: bridge
     networks:
       - default
 
 networks:
   default:
-    name: '${APP_NETWORK:-backend}'
+    name: '${APP_NETWORK:-development}'

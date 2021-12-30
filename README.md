@@ -19,7 +19,8 @@ $ docker-compose up -d
 
 # Agregar dominio
 
-1. En el archivo **etc/nginx/conf.d/default.conf** agregar lo siguiente:
+1. Crear el archivo **etc/nginx/conf.d/local.example.com.conf** reemplazando **local.example.com** por el dominio (local) que se usará.
+2. En ese archivo agregar lo siguiente:
 ```
 server {
     listen       80;
@@ -33,20 +34,20 @@ server {
     }
 }
 ```
-2. Reemplazar **local.example.com** por el dominio (local) que se usará.
-3. Reemplazar **example_container_name** por el nombre del contenedor que responderá las solicitudes.
-4. Reiniciar este contenedor:
+3. Reemplazar **local.example.com** por el dominio (local) que se usará.
+4. Reemplazar **example_container_name** por el nombre del contenedor que responderá las solicitudes.
+5. Reiniciar este contenedor:
 ```sh
 $ docker-compose restart
 ```
-5. Agregar al archivo /private/etc/hosts (en la máquina local) el dominio que se usará:
+6. Agregar al archivo /private/etc/hosts (en la máquina local) el dominio que se usará:
 ```
 127.0.0.1 local.example.com
 ```
 
 # HTTPS
 
-1. En el archivo **etc/nginx/conf.d/default.conf** agregar lo siguiente:
+1. En el archivo **etc/nginx/conf.d/local.example.com.conf** (donde **local.example.com** es el dominio deseado) agregar lo siguiente:
 ```
 server {
     listen 443 ssl http2;
@@ -70,3 +71,7 @@ server {
 ```sh
 $ docker-compose restart
 ```
+
+# Generar certificados
+
+Una opción para generar los certificados es [mkcert](https://github.com/FiloSottile/mkcert), pero se puede usar cualquier otra herramienta o servicio.
