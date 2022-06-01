@@ -31,6 +31,8 @@ server {
         resolver         127.0.0.11;
         proxy_pass       http://$container;
         proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
     }
 }
 ```
@@ -58,7 +60,8 @@ server {
         resolver         127.0.0.11;
         proxy_pass       http://$container;
         proxy_set_header Host $host;
-        #proxy_set_header X-Forwarded-For  $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
     }
     ssl_certificate "/etc/nginx/tls/${host}/cert.pem";
     ssl_certificate_key "/etc/nginx/tls/${host}/key.pem";
@@ -75,3 +78,7 @@ $ docker-compose restart
 # Generar certificados
 
 Una opción para generar los certificados es [mkcert](https://github.com/FiloSottile/mkcert), pero se puede usar cualquier otra herramienta o servicio.
+```sh
+$ cd etc/nginx/tls/local.example.com
+$ mkcert -key-file key.pem -cert-file cert.pem local.example.com
+```
