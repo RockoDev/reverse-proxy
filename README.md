@@ -79,6 +79,11 @@ $ docker compose restart
 
 Una opción para generar los certificados es [mkcert](https://github.com/FiloSottile/mkcert), pero se puede usar cualquier otra herramienta o servicio.
 ```sh
+$ mkdir -p etc/nginx/tls/local.example.com
 $ cd etc/nginx/tls/local.example.com
 $ mkcert -key-file key.pem -cert-file cert.pem local.example.com
+```
+Wizard:
+```sh
+$ bash create-cert.sh
 ```
