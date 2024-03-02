@@ -14,7 +14,7 @@ APP_NETWORK=development
 
 # Montar
 ```sh
-$ docker-compose up -d
+$ docker compose up -d
 ```
 
 # Agregar dominio
@@ -40,7 +40,7 @@ server {
 4. Reemplazar **example_container_name** por el nombre del contenedor que responderá las solicitudes.
 5. Reiniciar este contenedor:
 ```sh
-$ docker-compose restart
+$ docker compose restart
 ```
 6. Agregar al archivo /private/etc/hosts (en la máquina local) el dominio que se usará:
 ```
@@ -72,7 +72,7 @@ server {
 4. Generar un certificado TLS para el dominio y guardar los archivos **cert.pem** y **key.pem** en la ruta "etc/nginx/tls/*DOMINIO*/"
 5. Reiniciar este contenedor:
 ```sh
-$ docker-compose restart
+$ docker compose restart
 ```
 
 # Generar certificados
