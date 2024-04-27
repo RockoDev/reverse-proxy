@@ -49,7 +49,7 @@ while getopts ":d:c:sgrh" option; do
     g) GENERATE_CERTIFICATE=true;;
     r) RESTART_SERVICE=true;;
     h) print_help; exit 0;;
-    *) echo "Invalid option -${OPTARG}"
+    *) echo "Error: Invalid option -${OPTARG}"
        exit 1;;
   esac
 done
@@ -77,6 +77,22 @@ if [[ $CONTAINER_NAME == "" ]]; then
     if [ "$https" == "y" ] || [ "$https" == "yes" ] ;then 
       HTTPS_ENABLED=true
     fi
+  fi
+
+  if [ "$HTTPS_ENABLED" = true ]; then
+    echo "Do you want to generate a certificate for ${DOMAIN_NAME}? (y/n)"
+    read generate_certificate
+    generate_certificate=$(echo $generate_certificate | tr '[:upper:]' '[:lower:]')
+    if [ "$generate_certificate" == "y" ] || [ "$generate_certificate" == "yes" ]; then 
+      GENERATE_CERTIFICATE=true
+    fi
+  fi
+
+  echo "Do you want to restart Nginx service? (y/n)"
+  read restart_service
+  restart_service=$(echo $restart_service | tr '[:upper:]' '[:lower:]')
+  if [ "$restart_service" == "y" ] || [ "$restart_service" == "yes" ]; then 
+    RESTART_SERVICE=true
   fi
 
 fi
