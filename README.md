@@ -85,5 +85,12 @@ $ mkcert -key-file key.pem -cert-file cert.pem local.example.com
 ```
 Wizard:
 ```sh
-$ bash create-cert.sh
+$ bash wizard.sh -d example.com -c example-php-1 -s -g -r
 ```
+Argumantos:
+- **-d** Nombre de dominio.
+- **-c** Nombre del contenedor.
+- **-s** Escuchar puerto 443.
+- **-g** Generar certificados. (Solo si **-s** también está habilitado).
+- **-r** Reiniciar servicio NGINX al finalizar.
+- **--help** Mostrar ayuda.
