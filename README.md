@@ -18,11 +18,14 @@ docker compose up -d
 ```
 
 # Wizard:
-Preguntará los parámetros de sitio:
+En el proyecto hay un script **wizard.sh**, con el se podrán crear los sitios de una forma más rápida.
+
+Ejecutando el script sin parámetros, preguntará las opciones de configuración durante su ejecución:
 ```sh
 bash wizard.sh
 ```
-Creará el sitio example.com apuntando al contenedor example-php-1 escuchando el puerto 80 y 443, generará el certificado y reiniciará nginx:
+Otra opción es especificar los parámetros al ejecutar el script.
+De esta forma creará el sitio example.com apuntando al contenedor example-php-1 escuchando el puerto 80 y 443, generará el certificado y reiniciará nginx:
 ```sh
 bash wizard.sh -d example.com -c example-php-1 -s -g -r
 ```
