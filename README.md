@@ -2,7 +2,7 @@
 
 1. Crear copia del archivo .env.example con el nombre .env
 ```sh
-$ cp .env.example .env
+cp .env.example .env
 ```
 
 2. Especificar el valor de la variable **APP_NETWORK** en el archivo **.env**.
@@ -14,8 +14,25 @@ APP_NETWORK=development
 
 # Montar
 ```sh
-$ docker compose up -d
+docker compose up -d
 ```
+
+# Wizard:
+Preguntará los parámetros de sitio:
+```sh
+bash wizard.sh
+```
+Creará el sitio example.com apuntando al contenedor example-php-1 escuchando el puerto 80 y 443, generará el certificado y reiniciará nginx:
+```sh
+bash wizard.sh -d example.com -c example-php-1 -s -g -r
+```
+Argumantos:
+- **-d:** Nombre de dominio.
+- **-c:** Nombre del contenedor.
+- **-s:** Escuchar puerto 443.
+- **-g:** Generar certificados. (Solo si **-s** también está habilitado).
+- **-r:** Reiniciar servicio NGINX al finalizar.
+- **-h|--help:** Mostrar ayuda.
 
 # Agregar dominio
 
@@ -40,7 +57,7 @@ server {
 4. Reemplazar **example_container_name** por el nombre del contenedor que responderá las solicitudes.
 5. Reiniciar este contenedor:
 ```sh
-$ docker compose restart
+docker compose restart
 ```
 6. Agregar al archivo /private/etc/hosts (en la máquina local) el dominio que se usará:
 ```
@@ -72,25 +89,14 @@ server {
 4. Generar un certificado TLS para el dominio y guardar los archivos **cert.pem** y **key.pem** en la ruta "etc/nginx/tls/*DOMINIO*/"
 5. Reiniciar este contenedor:
 ```sh
-$ docker compose restart
+docker compose restart
 ```
 
 # Generar certificados
 
 Una opción para generar los certificados es [mkcert](https://github.com/FiloSottile/mkcert), pero se puede usar cualquier otra herramienta o servicio.
 ```sh
-$ mkdir -p etc/nginx/tls/local.example.com
-$ cd etc/nginx/tls/local.example.com
-$ mkcert -key-file key.pem -cert-file cert.pem local.example.com
+mkdir -p etc/nginx/tls/local.example.com
+cd etc/nginx/tls/local.example.com
+mkcert -key-file key.pem -cert-file cert.pem local.example.com
 ```
-Wizard:
-```sh
-$ bash wizard.sh -d example.com -c example-php-1 -s -g -r
-```
-Argumantos:
-- **-d** Nombre de dominio.
-- **-c** Nombre del contenedor.
-- **-s** Escuchar puerto 443.
-- **-g** Generar certificados. (Solo si **-s** también está habilitado).
-- **-r** Reiniciar servicio NGINX al finalizar.
-- **--help** Mostrar ayuda.
