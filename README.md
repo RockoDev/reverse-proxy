@@ -29,7 +29,7 @@ De esta forma creará el sitio example.com apuntando al contenedor example-php-1
 ```sh
 bash wizard.sh -d example.com -c example-php-1 -s -g -r
 ```
-Argumantos:
+Opciones:
 - **-d:** Nombre de dominio.
 - **-c:** Nombre del contenedor.
 - **-s:** Escuchar puerto 443.

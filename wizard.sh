@@ -141,25 +141,26 @@ EOF
 template="${port_80_template}"
 if [ "$HTTPS_ENABLED" = true ]; then
   template="${port_80_template}\n\n${port_443_template}"
-
-  if [ "$GENERATE_CERTIFICATE" = true ]; then
-    echo "Generating certificate for ${DOMAIN_NAME}"
-    parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
-    domain_path="$parent_path/etc/nginx/tls/$DOMAIN_NAME"
-    mkdir -p "$domain_path"
-    mkcert -key-file "$domain_path/key.pem" -cert-file "$domain_path/cert.pem" "$DOMAIN_NAME"
-  fi
-
 fi
 
+echo -e "${YELLOW}[*] Creating Nginx configuration file for ${DOMAIN_NAME}...${NC}"
 echo -e "$template" > etc/nginx/conf.d/${DOMAIN_NAME}.conf
+echo -e " ✔  Nginx configuration file has been created.\n"
+
+if [ "$HTTPS_ENABLED" = true ] && [ "$GENERATE_CERTIFICATE" = true ]; then
+  echo -e "${YELLOW}[*] Creating certificate for ${DOMAIN_NAME}...${NC}"
+  parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+  domain_path="$parent_path/etc/nginx/tls/$DOMAIN_NAME"
+  mkdir -p "$domain_path"
+  mkcert -key-file "$domain_path/key.pem" -cert-file "$domain_path/cert.pem" "$DOMAIN_NAME"
+fi
 
 if [ "$RESTART_SERVICE" = true ]; then
-  echo "Restarting Nginx service"
+  echo -e "${YELLOW}[*] Restarting Nginx service...${NC}"
   docker compose restart nginx
 fi
 
-echo -e "${GREEN}[+] Configuration for ${DOMAIN_NAME} has been generated successfully.${NC}\n"
-echo -e "    Please make sure to update your DNS records to point to this server."
+echo -e "\n${GREEN}[+] Configuration for ${DOMAIN_NAME} has been generated successfully.${NC}\n"
+echo -e "    Please make sure to update your DNS records to point to this server.\n"
 echo -e "    Or you can use the following command to update your /etc/hosts file:\n"
-echo -e "    sudo -- sh -c -e \"echo '127.0.0.1 ${DOMAIN_NAME}' >> /etc/hosts\";\n"
+echo -e "    ${BLUE}sudo -- sh -c -e \"echo '127.0.0.1 ${DOMAIN_NAME}' >> /etc/hosts\";${NC}\n"
