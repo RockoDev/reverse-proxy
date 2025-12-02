@@ -123,8 +123,9 @@ EOF
 
 port_443_template=$(cat << EOF
 server {
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    http2 on;
     server_name $DOMAIN_NAME;
     location / {
         set \$container   $CONTAINER_NAME;
